@@ -16,7 +16,8 @@ router.post('/challenge', (req,res) => {
         body,
         fk_team,
         level,
-        matter
+        matter,
+        status:"A"
         
     }).then((response) =>{
 
@@ -44,14 +45,16 @@ router.get('/challenge', (req,res) =>{
 
 router.put('/challenge/:id', (req,res) =>{
 
-    var {title, body, fk_team, level} = req.body
+    var {title, body, fk_team, level, status} = req.body
     var id = req.params.id
 
     ChallengeModel.update({
         title,
         body,
         fk_team,
-        level
+        level,
+        matter,
+        status
     },{
         where:{
             id:id

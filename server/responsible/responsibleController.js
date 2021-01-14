@@ -7,7 +7,7 @@ const ResponsibleModel = require('./Responsible')
 
 
 router.post('/responsible', (req, res) => {
-    var {name,email, cpf, rg} = req.body
+    var {name,email, cpf, rg, status} = req.body
 
     console.log(name, email, cpf, rg)
     
@@ -54,14 +54,15 @@ router.get('/responsible/:id', (req, res) =>{
 
 router.put('/responsible/:id', (req,res) =>{
 
-    var {name,email, cpf, rg} = req.body
+    var {name,email, cpf, rg, status} = req.body
     var id = req.params.id
 
     ResponsibleModel.update({
         name,
         email,
         cpf,
-        rg
+        rg,
+        status
     },{
         where:{
             id:id

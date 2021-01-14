@@ -3,20 +3,19 @@ const express = require('express');
 const router = express.Router();
 
 // Models
-var SchoolModel = require('./School')
+var CompanyModel = require('./Company')
 
 // Controller
-
-router.post('/school', (req,res) => {
+router.post('/company', (req,res) => {
     
-    var {name, county, state, cep, telephone, type, email, fk_responsible, inep} = req.body
+    var {name, cnpj, county, state, cep, telephone, type, email, fk_responsible} = req.body
     console.log(name)
     console.log(county, state, cep )
 
-    SchoolModel.findAll({where:{inep}}).then(response =>{
+    CompanyModel.findAll({where:{cnpj}}).then(response =>{
         if(response =='' || response ==null || response ==undefined){
             
-            SchoolModel.create({
+            CompanyModel.create({
                 name,
                 county,
                 state,
@@ -26,8 +25,7 @@ router.post('/school', (req,res) => {
                 telephone,
                 type,
                 fk_responsible,
-                inep
-        
+                cnpj
                 
             }).then((response) =>{
         
@@ -40,17 +38,19 @@ router.post('/school', (req,res) => {
         }else{
 
             res.statusCode = 400
-            res.json({success:false, message:"Inep já cadastrado"})
+            res.json({success:false, message:"CNPJ já cadastrado"})
 
         }   
+    }).catch(error =>{
+        console.log(error)
     })
 
   
 })
 
-router.get('/school', (req,res) =>{
-    SchoolModel.findAll({raw:true}).then((data) =>{
-        res.statusCode =200
+router.get('/company', (req,res) =>{
+    CompanyModel.findAll({raw:true}).then((data) =>{
+        res.statusCode = 200
         res.json({data: data})
     }).catch(error =>{
         res.statusCode = 400
@@ -58,42 +58,51 @@ router.get('/school', (req,res) =>{
     })
 })
 
-router.put('/school/:id', (req,res) =>{
+router.put('/company/:id', (req,res) =>{
 
-    var {name, county, state, cep, status} = req.body
+    var {name, cnpj, county, state, cep, telephone, type, email, fk_responsible, status} = req.body
     var id = req.params.id
-
-    SchoolModel.update({
-        name,
-        county,
-        state,
-        cep,
-        status
-    },{
-        where:{
-            id:id
-        }
-    }).then((response) =>{
-        res.statusCode = 200
-        res.json({message:"Atualizado com sucesso"})
-    }).catch(error =>{
-        res.statusCode = 400
-        console.log(error)
-    })
+    
+        CompanyModel.update({
+            name,
+            cnpj, 
+            county, 
+            state, 
+            cep, 
+            telephone, 
+            type, 
+            email, 
+            fk_responsible,
+            status
+        },{
+            where:{
+                id:id
+            }
+        }).then((response) =>{
+            res.statusCode = 200
+            res.json({message:"Atualizado com sucesso"})
+        }).catch(error =>{
+            res.statusCode = 400
+            console.log(error)
+        })
+    
+    
 })
+    
 
-router.get("/school/:id", (req,res) =>{
+
+router.get("/company/:id", (req,res) =>{
     
     let id = req.params.id
     
-    SchoolModel.findByPk(id).then(data =>{
+    CompanyModel.findByPk(id).then(data =>{
       
       if(data != null || data != undefined){
         res.statusCode = 200
         res.json({data:data})
       }else{
         res.statusCode = 400
-        res.json({message:"Usuario não encontrado"})  
+        res.json({message:"Empresa não encontrada não encontrado"})  
       }
       
     }).catch(error =>{
@@ -102,11 +111,11 @@ router.get("/school/:id", (req,res) =>{
     })
 })
 
-router.delete('/school/:id', (req,res) =>{
+router.delete('/company/:id', (req,res) =>{
 
     let id = req.params.id
 
-    SchoolModel.destroy({where:{id}}).then((response) =>{
+    CompanyModel.destroy({where:{id}}).then((response) =>{
         console.log(response)
 
         if( response!= 0 || response != 0){
