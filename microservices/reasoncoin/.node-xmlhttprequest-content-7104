@@ -1,0 +1,1 @@
+{"err":null,"data":{"statusCode":200,"headers":{"content-type":"application/json","date":"Wed, 13 Jan 2021 22:56:51 GMT","connection":"close","transfer-encoding":"chunked"},"text":"{\"id\":2,\"jsonrpc\":\"2.0\",\"result\":\"0x04b734c2ae52369b3a2daadf8b7bf4e3d1235c46822040910fbdbe18a31b08a9\"}"}}
