@@ -181,7 +181,7 @@ router.get('/student', (req, res) =>{
 router.get("/student/challenge", adminAuth, (req, res) =>{
 
     let id = req.loggedUser.id     
-
+    
     UserModel.findOne({where:id}).then(user =>{
         ChallengeModel.findAll({where:{fk_team: user.fk_turma}}).then(challenge =>{
             if(challenge ==null || challenge ==undefined){

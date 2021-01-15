@@ -18,6 +18,7 @@ const challengeController = require('./challenge/challengeController')
 const userController = require('./user/userController')
 const companyController = require('./company/conpanyController')
 const matterController = require('./matter/matterController')
+const walletController = require('./wallet/walletController')
 
 // Model
 const UserModel = require('./user/User');
@@ -47,6 +48,7 @@ app.use('/', challengeController )
 app.use('/', userController )
 app.use('/', companyController )
 app.use('/', matterController )
+app.use('/', walletController )
 
 app.post('/auth', (req, res)=>{
     
