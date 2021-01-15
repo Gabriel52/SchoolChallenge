@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken");
+const dotenv = require('dotenv');
 
 // DATABASE
 const connection = require('./database/database')
@@ -15,7 +17,7 @@ const teamController = require('./team/teamController')
 const challengeController = require('./challenge/challengeController')
 const userController = require('./user/userController')
 const companyController = require('./company/conpanyController')
-
+const matterController = require('./matter/matterController')
 
 // Model
 const UserModel = require('./user/User');
@@ -23,9 +25,10 @@ const User = require('./user/User');
 
 
 // config packages
+dotenv.config();
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-
+const jwtSecret = (process.env.JWT_SECRET)
 
 
 connection
@@ -43,6 +46,7 @@ app.use('/', teamController )
 app.use('/', challengeController )
 app.use('/', userController )
 app.use('/', companyController )
+app.use('/', matterController )
 
 app.post('/auth', (req, res)=>{
     
@@ -53,9 +57,21 @@ app.post('/auth', (req, res)=>{
         if(response){
             let correct = bcrypt.compareSync(password, response.password)
             if(correct){
-                res.statusCode = 200
-                res.json({success: true, message:"Login efetuado com sucesso"})
+
+                jwt.sign({id: response.id, email: response.email}, jwtSecret, {expiresIn: '24h'}, (error, token) =>{
+                    if(error){
+                        res.statusCode = 400
+                        res.json({success: true, message:"Falha Interna"})
+                    }else{
+                                
+                        res.statusCode = 200
+                        res.json({success: true, token: token})
+                        
+                    }
+                })
+
             }else{
+
                 res.statusCode = 401
                 res.json({success: false, message:"Credenciais de usuario invalido"})
             }

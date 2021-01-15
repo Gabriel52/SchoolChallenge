@@ -1,12 +1,12 @@
 // PACKAGE
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../middleware/middleware')
 
 // Models
 var SchoolModel = require('./School')
 
-// Controller
-
+/
 router.post('/school', (req,res) => {
     
     var {name, county, state, cep, telephone, type, email, fk_responsible, inep} = req.body
@@ -48,7 +48,7 @@ router.post('/school', (req,res) => {
   
 })
 
-router.get('/school', (req,res) =>{
+router.get('/school', adminAuth, (req,res) =>{
     SchoolModel.findAll({raw:true}).then((data) =>{
         res.statusCode =200
         res.json({data: data})
@@ -58,7 +58,7 @@ router.get('/school', (req,res) =>{
     })
 })
 
-router.put('/school/:id', (req,res) =>{
+router.put('/school/:id', adminAuth, (req,res) =>{
 
     var {name, county, state, cep, status} = req.body
     var id = req.params.id
@@ -82,7 +82,7 @@ router.put('/school/:id', (req,res) =>{
     })
 })
 
-router.get("/school/:id", (req,res) =>{
+router.get("/school/:id", adminAuth, (req,res) =>{
     
     let id = req.params.id
     
@@ -102,7 +102,7 @@ router.get("/school/:id", (req,res) =>{
     })
 })
 
-router.delete('/school/:id', (req,res) =>{
+router.delete('/school/:id', adminAuth, (req,res) =>{
 
     let id = req.params.id
 

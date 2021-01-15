@@ -1,13 +1,16 @@
 // PACKAGE
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../middleware/middleware')
 
 // Models
 var ChallengeModel = require('./Challenge')
+var UserModel = require('../user/User')
+var TeamModel = require('../team/Team')
 
 // Controller
 
-router.post('/challenge', (req,res) => {
+router.post('/challenge', adminAuth, (req,res) => {
     
     var {title, level, body, fk_team, matter} = req.body
             
@@ -17,7 +20,8 @@ router.post('/challenge', (req,res) => {
         fk_team,
         level,
         matter,
-        status:"A"
+        status:"A",
+        success: false
         
     }).then((response) =>{
 
@@ -31,7 +35,7 @@ router.post('/challenge', (req,res) => {
   
 })
 
-router.get('/challenge', (req,res) =>{
+router.get('/challenge', adminAuth, (req,res) =>{
     ChallengeModel.findAll({raw:true}).then((data) =>{
         console.log(data)
         res.statusCode =200
@@ -43,9 +47,9 @@ router.get('/challenge', (req,res) =>{
 })
 
 
-router.put('/challenge/:id', (req,res) =>{
+router.put('/challenge/:id', adminAuth, (req,res) =>{
 
-    var {title, body, fk_team, level, status} = req.body
+    var {title, body, fk_team, level, status, matter, success} = req.body
     var id = req.params.id
 
     ChallengeModel.update({
@@ -54,7 +58,8 @@ router.put('/challenge/:id', (req,res) =>{
         fk_team,
         level,
         matter,
-        status
+        status,
+        success
     },{
         where:{
             id:id
@@ -68,7 +73,7 @@ router.put('/challenge/:id', (req,res) =>{
     })
 })
 
-router.get("/challenge/:id", (req,res) =>{
+router.get("/challenge/:id", adminAuth, (req,res) =>{
     
     let id = req.params.id
     
@@ -88,7 +93,7 @@ router.get("/challenge/:id", (req,res) =>{
     })
 })
 
-router.delete('/challenge/:id', (req,res) =>{
+router.delete('/challenge/:id', adminAuth, (req,res) =>{
 
     let id = req.params.id
 

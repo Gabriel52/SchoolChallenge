@@ -30,6 +30,18 @@ const User = connection.define('tbl_user',{
         type: Sequelize.STRING,
         
     }, 
+    cep:{
+        type: Sequelize.STRING,
+    allowNull: false 
+    },
+    uf:{
+        type: Sequelize.STRING,
+       allowNull: false 
+    },
+    city:{
+        type: Sequelize.STRING,
+       allowNull: false 
+    },
     attendance:{
         type: Sequelize.INTEGER,
         
@@ -61,7 +73,12 @@ const User = connection.define('tbl_user',{
     status:{
         type: Sequelize.STRING,
         allowNull: false
+    },
+    img:{
+        type: Sequelize.STRING,
+        allowNull: false
     }
+
     
 });
 

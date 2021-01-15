@@ -1,15 +1,14 @@
 // PACKAGE
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../middleware/middleware')
 
 // Models
 var TeamModel = require('./Team')
 
-
-
-router.post('/team', (req,res) => {
+router.post('/team', adminAuth, (req,res) => {
     
-    let {numberStudent, serie, coordinator, room, period } = req.body
+    let {numberStudent, serie, coordinator, room, period, type, fk_school } = req.body
     
     TeamModel.create({
         numberStudent,
@@ -17,8 +16,10 @@ router.post('/team', (req,res) => {
         coordinator,
         room,
         period,
-        status: "A"
-
+        status: "A",
+        type, 
+        fk_school
+ 
     }).then(response =>{
         res.statusCode = 201
         res.json({success: true, message: "Turma criado com sucesso"})
@@ -29,10 +30,10 @@ router.post('/team', (req,res) => {
     })
 })
 
-router.put('/team/:id', (req,res) => {
+router.put('/team/:id', adminAuth, (req,res) => {
     
     let id = req.params.id
-    let {numberStudent, serie, coordinator, room, period, status } = req.body
+    let {numberStudent, serie, coordinator, room, period, status,  type, fk_school } = req.body
     
     TeamModel.update({
         numberStudent,
@@ -40,8 +41,9 @@ router.put('/team/:id', (req,res) => {
         coordinator,
         room,
         period,
-        status
-
+        status,
+        type, 
+        fk_school
     },{
         where:{
             id:id
@@ -56,7 +58,7 @@ router.put('/team/:id', (req,res) => {
     })
 })
 
-router.get('/team', (req,res) =>{
+router.get('/team', adminAuth, (req,res) =>{
     TeamModel.findAll({raw:true}).then(data =>{
         res.statusCode = 200
         res.json({success: true, data: data})
@@ -66,7 +68,7 @@ router.get('/team', (req,res) =>{
     })
 })
 
-router.get('/team/:id', (req,res) =>{
+router.get('/team/:id', adminAuth, (req,res) =>{
 
     let id = req.params.id    
 
@@ -87,7 +89,7 @@ router.get('/team/:id', (req,res) =>{
     })
 })
 
-router.delete('/team/:id', (req,res) =>{
+router.delete('/team/:id', adminAuth, (req,res) =>{
 
     let id = req.params.id
 

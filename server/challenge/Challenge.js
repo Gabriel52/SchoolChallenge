@@ -25,6 +25,10 @@ const Challenge = connection.define('tbl_challenge',{
     status:{
         type: Sequelize.STRING,
         allowNull: false
+    },
+    success:{
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 });
 

@@ -45,6 +45,7 @@ const Company = connection.define('tbl_company',{
         type: Sequelize.STRING,
         allowNull: false
     },
+        
 
 });
 

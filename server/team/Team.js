@@ -25,6 +25,14 @@ const Team = connection.define('tbl_team',{
     status:{
         type: Sequelize.STRING,
         allowNull: false
+    },
+    type:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    fk_school:{
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 

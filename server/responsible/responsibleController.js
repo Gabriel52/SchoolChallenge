@@ -1,12 +1,13 @@
 // PACKAGE
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../middleware/middleware')
 
 // Models
 const ResponsibleModel = require('./Responsible')
 
 
-router.post('/responsible', (req, res) => {
+router.post('/responsible', adminAuth, (req, res) => {
     var {name,email, cpf, rg, status} = req.body
 
     console.log(name, email, cpf, rg)
@@ -28,7 +29,7 @@ router.post('/responsible', (req, res) => {
 })
 
 
-router.get('/responsible', (req, res) =>{
+router.get('/responsible', adminAuth, (req, res) =>{
     ResponsibleModel.findAll({raw:true}).then(data =>{
         res.statusCode = 200;
         res.json({data: data})
@@ -52,7 +53,7 @@ router.get('/responsible/:id', (req, res) =>{
     })
 })
 
-router.put('/responsible/:id', (req,res) =>{
+router.put('/responsible/:id', adminAuth, (req,res) =>{
 
     var {name,email, cpf, rg, status} = req.body
     var id = req.params.id
@@ -76,7 +77,7 @@ router.put('/responsible/:id', (req,res) =>{
     })
 })
 
-router.delete('/responsible/:id', (req,res) =>{
+router.delete('/responsible/:id', adminAuth, (req,res) =>{
 
     let id = req.params.id
 
