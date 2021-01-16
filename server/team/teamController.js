@@ -5,10 +5,11 @@ const adminAuth = require('../middleware/middleware')
 
 // Models
 var TeamModel = require('./Team')
+var SchoolModel = require('../school/School')
 
 router.post('/team', adminAuth, (req,res) => {
     
-    let {numberStudent, serie, coordinator, room, period, type, fk_school } = req.body
+    let {numberStudent, serie, coordinator, room, period, type, fk_school, fk_user } = req.body
     
     TeamModel.create({
         numberStudent,
@@ -18,7 +19,8 @@ router.post('/team', adminAuth, (req,res) => {
         period,
         status: "A",
         type, 
-        fk_school
+        fk_school,
+        fk_user
  
     }).then(response =>{
         res.statusCode = 201
@@ -60,7 +62,8 @@ router.put('/team/:id', adminAuth, (req,res) => {
 
 router.get('/team', adminAuth, (req,res) =>{
     TeamModel.findAll({raw:true}).then(data =>{
-        res.statusCode = 200
+
+        res.statusCode = 200        
         res.json({success: true, data: data})
     }).catch(error =>{
         console.log(error)

@@ -19,11 +19,11 @@ const userController = require('./user/userController')
 const companyController = require('./company/conpanyController')
 const matterController = require('./matter/matterController')
 const walletController = require('./wallet/walletController')
+const fk_userController = require("./fk_user/fk_userController")
 
 // Model
 const UserModel = require('./user/User');
-const User = require('./user/User');
-
+const CompanyModel = require('./company/Company')
 
 // config packages
 dotenv.config();
@@ -49,18 +49,51 @@ app.use('/', userController )
 app.use('/', companyController )
 app.use('/', matterController )
 app.use('/', walletController )
+app.use('/', fk_userController )
 
 app.post('/auth', (req, res)=>{
     
-    var {email, password} = req.body
+    var {email, password, type} = req.body
 
-    UserModel.findOne({where:{email}}).then(response =>{
-        console.log(response)
-        if(response){
-            let correct = bcrypt.compareSync(password, response.password)
-            if(correct){
 
-                jwt.sign({id: response.id, email: response.email}, jwtSecret, {expiresIn: '24h'}, (error, token) =>{
+    CompanyModel.findOne({where:{email}}).then(company =>{
+        
+        if(company == undefined || company == null || company == "" ){
+
+            UserModel.findOne({where:{email}}).then(response =>{
+                console.log(response)
+                if(response){
+                    let correct = bcrypt.compareSync(password, response.password)
+                    if(correct){
+
+                        jwt.sign({id: response.id, email: response.email, type:"user"}, jwtSecret, {expiresIn: '24h'}, (error, token) =>{
+                            if(error){
+                                res.statusCode = 400
+                                res.json({success: true, message:"Falha Interna"})
+                            }else{
+                                        
+                                res.statusCode = 200
+                                res.json({success: true, token: token})
+                                
+                            }
+                        })
+
+                    }else{
+
+                        res.statusCode = 401
+                        res.json({success: false, message:"Credenciais de usuario invalido"})
+                    }
+                }else{
+                    res.statusCode = 401
+                    res.json({success: false, message:"Email de usuario invalido"})
+                }
+            })
+
+        }else{
+            let correctCompany = bcrypt.compareSync(password, company.password)
+            
+            if(correctCompany){
+                jwt.sign({id: company.id, email: company.email, type:'company' }, jwtSecret, {expiresIn: '24h'}, (error, token) =>{
                     if(error){
                         res.statusCode = 400
                         res.json({success: true, message:"Falha Interna"})
@@ -71,18 +104,12 @@ app.post('/auth', (req, res)=>{
                         
                     }
                 })
-
             }else{
-
                 res.statusCode = 401
-                res.json({success: false, message:"Credenciais de usuario invalido"})
+                res.json({success: false, message:"Credenciais invalidas"})
             }
-        }else{
-            res.statusCode = 401
-            res.json({success: false, message:"Email de usuario invalido"})
         }
     })
-
 })
 
 var port = 3000

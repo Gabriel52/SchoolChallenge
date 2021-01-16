@@ -7,7 +7,8 @@ const router = express.Router();
 var MatterModel = require('./Matter')
 var UserModel = require('../user/User')
 var TeamModel = require('../team/Team')
-const adminAuth = require('../middleware/middleware')
+const adminAuth = require('../middleware/middleware');
+const FK_user = require('../fk_user/Fk_User');
 
 
 // Controller
@@ -121,8 +122,9 @@ router.delete('/matter/:id', adminAuth, (req,res) =>{
     })
 })
 
-router.get('/teacher/:id', adminAuth, (req, res) =>{
-    let id = req.params.id
+router.get('/teacher', adminAuth, (req, res) =>{
+    let id = req.loggedUser.id
+
     UserModel.findByPk(id).then(teacher =>{
         if(teacher == null){
         res.statusCode = 400
@@ -130,14 +132,16 @@ router.get('/teacher/:id', adminAuth, (req, res) =>{
         }
   
         MatterModel.findAll({where:{fk_user:id}}).then( matter =>{
-            res.statusCode = 200
-            res.json({success: true,teacher: teacher, matter: matter})
-            if(matter ==nul){
-                es.statusCode = 400
-                res.json({success:false, message: "Professor não possui materia"})
-            }else{
-
-            }
+            console.log(matter)
+            FK_user.findAll({where:{fk_user:id}}).then(fk_team =>{
+                
+                TeamModel.findAll({}).then(team =>{
+                    
+                res.statusCode = 200
+                res.json({success: true,teacher: teacher, matter: matter, team: team})
+    
+                })
+            })            
         
         })
 

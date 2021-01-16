@@ -7,6 +7,10 @@ const adminAuth = require('../middleware/middleware');
 // Models
 var UserModel = require('./User')
 var ChallengeModel = require('../challenge/Challenge')
+var WalletModel = require('../wallet/Wallet')
+var CompanyModel = require('../company/Company')
+var Fk_user = require('../fk_user/Fk_User')
+
 // Controller
 
 router.post('/user', (req,res) => {
@@ -200,23 +204,40 @@ router.get("/student/challenge", adminAuth, (req, res) =>{
 
 router.get("/myaccount", adminAuth, (req,res) =>{
     
-    let id = req.loggedUser.id         
+    let id = req.loggedUser.id     
+    let type = req.type
 
-    console.log(id)
-    UserModel.findOne({where:{id}}).then(data =>{
+
+    console.log(type)
+
+    if(type == "company"){
+        CompanyModel.findOne({where:id}).then(company =>{
+
+            res.json({success:true, user: company})
+
+        })
+    }else{
+        UserModel.findOne({where:{id}}).then(user =>{
       
-      if(data != null || data != undefined){
-        res.statusCode = 200
-        res.json({success: true, data:data})
-      }else{
-        res.statusCode = 400
-        res.json({success: false,message:"Usuario não encontrado"})  
-      }
-    
-    }).catch(error =>{
-        res.statusCode = 400
-        console.log(error)
-    })
+            if(user != null || data != user){
+              
+              WalletModel.findOne({where:{address: user.fk_wallet}}).then(wallet =>{
+                  res.json({wallet:wallet , user: user})
+                  res.statusCode =200
+              }).catch(error =>{
+                  console.log(error)
+              })
+      
+            }else{
+              res.statusCode = 400
+              res.json({success: false,message:"Usuario não encontrado"})  
+            }
+          
+          }).catch(error =>{
+              res.statusCode = 400
+              console.log(error)
+          })
+    }
 })
 
 

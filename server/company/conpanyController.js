@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const adminAuth = require('../middleware/middleware')
+const bcrypt = require("bcryptjs")
 
 // Models
 var CompanyModel = require('./Company')
@@ -9,14 +10,19 @@ var CompanyModel = require('./Company')
 // Controller
 router.post('/company', (req,res) => {
     
-    var {name, cnpj, county, state, cep, telephone, type, email, fk_responsible} = req.body
+    var {name, cnpj, county, state, cep, telephone, type, email, fk_responsible,setor, password} = req.body
     console.log(name)
     console.log(county, state, cep )
+
+    let salt = bcrypt.genSaltSync(10);
+    let encrypted = bcrypt.hashSync(password, salt)        
 
     CompanyModel.findAll({where:{cnpj}}).then(response =>{
         if(response =='' || response ==null || response ==undefined){
             
             CompanyModel.create({
+                setor,
+                password:encrypted,
                 name,
                 county,
                 state,
@@ -61,7 +67,7 @@ router.get('/company', adminAuth, (req,res) =>{
 
 router.put('/company/:id', adminAuth, (req,res) =>{
 
-    var {name, cnpj, county, state, cep, telephone, type, email, fk_responsible, status} = req.body
+    var {name, cnpj, county, state, cep, telephone, type, email, fk_responsible, status, password} = req.body
     var id = req.params.id
     
         CompanyModel.update({
