@@ -76,13 +76,13 @@ router.get('/user', adminAuth, (req,res) =>{
 
 router.put('/user/:id', adminAuth, (req,res) =>{
 
-    var {email, password, name, cpf, rg, role, fk_turma, fk_wallet, status, age, attendance, state, city,cep, note, behavior, img} = req.body
+    var {email, score, password, name, cpf, rg, role, fk_turma, fk_wallet, status, age, attendance, state, city,cep, note, behavior, img} = req.body
        
     let salt = bcrypt.genSaltSync(10);
     let encrypted = bcrypt.hashSync(password, salt)  
 
     let noteTratment = note *10
-    let score = parseInt(noteTratment) + parseInt(attendance) + parseInt(behavior)
+    // let score = parseInt(noteTratment) + parseInt(attendance) + parseInt(behavior)
 
     var id = req.params.id
     UserModel.findByPk(id).then(response => {
@@ -238,6 +238,29 @@ router.get("/myaccount", adminAuth, (req,res) =>{
               console.log(error)
           })
     }
+})
+
+router.post('/filter',adminAuth, (req, res) => {
+    
+    var {uf, city, personality} = req.body
+    console.log(uf, city, personality)
+    UserModel.findAll({
+        where:{
+            uf,
+            city,
+            personality
+        }
+    }).then(user =>{
+        if(user == undefined || user == null || user ==""){
+            res.statusCode =404
+            res.json({success:false, message:"Por enquanto não existe alunos com este atributo"})
+        }else{
+            res.statusCode =200
+            res.json({success:true, user:user})
+        }
+    }).catch(error =>{
+        console.log(error)
+    })
 })
 
 
