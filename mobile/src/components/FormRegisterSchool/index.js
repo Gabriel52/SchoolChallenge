@@ -90,7 +90,6 @@ export default function FormRegisterSchool({navigation}) {
             }}
             data={data}
             style={styles.typeSchool}
-
           />
 
           <Button
@@ -120,7 +119,7 @@ const styles = StyleSheet.create({
     fontFamily: 'AlegreyaSans_800ExtraBold',
 
     textAlign: "center",
-    marginBottom: 35
+    marginBottom: 15
   },
   containerScroll: {
     paddingHorizontal:16,

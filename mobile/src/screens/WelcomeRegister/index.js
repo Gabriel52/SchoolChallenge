@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
+import SimpleLogo from '../../assets/logos/simpleIcon.png'
 
 export default function WelcomeRegister({navigation}) {
 
@@ -13,6 +14,13 @@ export default function WelcomeRegister({navigation}) {
   return (
     <>
       <View style={styles.container}>
+        <View style={styles.conatainerLogo}>
+          <Image
+            style={styles.logoImg}
+            source={SimpleLogo}
+          />
+        </View>
+
         <Text style={styles.title}>Seja bem-vindo!</Text>
 
         <Text style={styles.subTitle}>Como você se identifica?</Text>
@@ -69,5 +77,19 @@ const styles = StyleSheet.create({
     textDecorationLine:"underline",
     fontFamily: 'AlegreyaSans_400Regular'
 
-  }
+  },
+  conatainerLogo:{
+    backgroundColor:"white",
+    marginLeft:"auto",
+    marginRight:"auto",
+
+    borderRadius: 5,
+    marginTop: 20,
+    marginBottom: 15,
+    padding: 10
+  },
+  logoImg:{
+    width:100,
+    height:80
+  },
 });

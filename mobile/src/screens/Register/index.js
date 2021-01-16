@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 //Import Forms
 import FormRegisterSchool from '../../components/FormRegisterSchool';
 import FormRegisterCompany from '../../components/FormRegisterCompany';
+import Header from '../../components/Header';
 
 export default function Register({navigation, route}) {
   const { goBack } = useNavigation();
@@ -17,10 +18,8 @@ export default function Register({navigation, route}) {
 
   return (
     <>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => { goBack() }} style={styles.iconBack}>
-          <Icon name="arrow-left" color="white" size={24} />
-        </TouchableOpacity>
+      <View style={styles.headerStyle}>
+        <Header/>
       </View>
       {
         typeRegister == "School" 
@@ -46,4 +45,7 @@ const styles = StyleSheet.create({
 
     alignItems:"center"
   },
+  headerStyle:{
+    marginBottom:15
+  }
 });

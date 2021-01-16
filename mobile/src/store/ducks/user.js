@@ -5,6 +5,7 @@ export const Types = {
   TYPE_USER: '@user/AUTHENTICATED_USER',
   USER_AUTH: '@user/USER_AUTH',
   CHALLENGES: '@user/CHALLENGES',
+  CARTEIRA: '@user/CARTEIRA',
 };
 
 /**
@@ -15,7 +16,8 @@ const INITIAL_STATE = {
   user:{
     role:''
   },
-  challenges:[]
+  challenges:[],
+  carteira:{}
 };
 
 /**
@@ -29,6 +31,8 @@ export default function user(state = INITIAL_STATE, action) {
         return { ...state, typeUser: action.typeUser };
     case Types.CHALLENGES:
       return {...state, challenges: action.challenges };
+    case Types.CARTEIRA:
+    return {...state, carteira: action.carteira };
     default:
         return state;
   }
@@ -50,5 +54,9 @@ export const Creators = {
   addChallenge: (challenges) => ({
     type: Types.CHALLENGES,
     challenges
-  })
+  }),
+  addCarteira: (carteira) => ({
+    type: Types.CARTEIRA,
+    carteira
+  }),
 };

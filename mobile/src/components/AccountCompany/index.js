@@ -4,25 +4,30 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 
 import { Button } from 'react-native-paper';
 
-import ImageFake from '../../assets/images/Astronaut-space.jpg'
+import imageCompany from '../../assets/icons/userCompany.png'
+
+import { useSelector } from 'react-redux';
 
 export default function AccountCompany({navigation, route}) {
+  const selector = useSelector(state => state);
+  const user = selector.user.user;
+
   return (
     <>
       <View style={styles.headerProfile}>
         <View style={styles.profileInfo}>
           <Image
             style={styles.imgProfile}
-            source={ImageFake}
+            source={imageCompany}
           />
-          <Text  style={styles.profileName}>Shawee</Text>
+          <Text  style={styles.profileName}>{user.name}</Text>
         </View>
       </View>
 
       <View style={styles.detailsMyAccount}>
         <View>
           <Text style={styles.titleDetailMyAccount}>Ramo ou Setor</Text>
-          <Text style={styles.textDetailMyAccount}>Administração de Empresas</Text>
+          <Text style={styles.textDetailMyAccount}>{user.setor}</Text>
         </View>
       </View>
 

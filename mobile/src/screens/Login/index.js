@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { TextInput, Button, useTheme } from 'react-native-paper';
 
 //redux
@@ -9,6 +9,8 @@ import { Creators as UserActions } from '../../store/ducks/user';
 
 import api from '../../services/api';
 import { useAsyncStorage } from '@react-native-community/async-storage';
+
+import EscalaLogo from '../../assets/logos/escala.jpg'
 
 
 // navigation.navigate("Tabs"), dispach(UserActions.addTypeUser('empresa'))
@@ -20,22 +22,26 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { getItem, setItem } = useAsyncStorage('@storage_key');
+  const { setItem } = useAsyncStorage('@storage_key');
   
   async function authorization() {
     if(!email == '' || !password == ''){
-        const auth = await api.post( "auth", {email, password} );
+        try {
+          const auth = await api.post( "auth", {email, password} );
         
         if (auth.data.success) {
           try {
             setItem(auth.data.token);
 
             const user = await api.get( "myaccount", { headers: { Authorization: `Bearer ${auth.data.token}` } } );
-            const challenges = await api.get("student/challenge", { headers: { Authorization: `Bearer ${auth.data.token}` } })
+
+            if(user.data.user.role == "Aluno") {
+              const challenges = await api.get("student/challenge", { headers: { Authorization: `Bearer ${auth.data.token}` } })
+              dispach(UserActions.addChallenge(challenges.data.data))
+              dispach(UserActions.addCarteira(user.data.wallet))
+            }
   
-            dispach(UserActions.addUserAction(user.data.data))
-            dispach(UserActions.addChallenge(challenges.data.data))
-  
+            dispach(UserActions.addUserAction(user.data.user))
             navigation.navigate("Tabs")
           } catch (error) {
             alert("Senha ou Usuario incorreto tente novamente!");
@@ -44,9 +50,9 @@ export default function Login({navigation}) {
         } else {
           alert("Senha ou Usuario incorreto tente novamente!");
         }
-
-        // login.data.token == null ? setItem("") : setItem(login.data.token);
-        //return auth.data.success ?  : 
+        } catch (error) {
+          alert("Senha ou Usuario incorreto tente novamente!");
+        }
     } else{
       alert("Preencha todos os campos!")
     }
@@ -55,6 +61,14 @@ export default function Login({navigation}) {
   return (
     <>
       <View style={styles.container}>
+        <View style={styles.containerLogo}>
+          <Image
+            style={styles.logo}
+            source={EscalaLogo}
+          />
+        </View>
+        
+
         <TextInput
           mode="filled"
           label="E-mail"
@@ -81,7 +95,7 @@ export default function Login({navigation}) {
         />
 
         <Button
-          style={{ marginBottom: 10, borderRadius: 12 }} 
+          style={{ marginBottom: 20, borderRadius: 12 }} 
           labelStyle={{ color:"white" }}
           theme={{ roundness: 2 }}
           mode="contained"
@@ -157,7 +171,7 @@ const styles = StyleSheet.create({
   hrStyle: {
     borderBottomColor: 'white',
     borderBottomWidth: 1,
-    marginBottom: 12,
+    marginBottom: 18,
   },
   rowClicked: {
     display: "flex",
@@ -165,5 +179,13 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     marginBottom: 28,
+  },
+  containerLogo:{
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
+  logo:{
+    width: 200,
+    height: 145
   }
 });

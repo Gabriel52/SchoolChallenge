@@ -1,30 +1,61 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown-v2'
 
 import Header from '../../components/Header';
+import { useAsyncStorage } from '@react-native-community/async-storage';
+import api from '../../services/api';
+
+const dataPeriodo = [{
+  value: 
+    'Noite',
+  }, {
+  value: 
+    'Tarde',
+  }
+];
+
+const dataSerie = [{
+  value: 
+    '1°Série',
+  }, {
+  value: 
+    '2°Série',
+  },
+  {
+  value: 
+    '3°Série',
+  }
+];
 
 export default function NewTurma({navigation}) {
-  const data = [{
-    value: 
-      'Matematica',
-    }, {
-    value: 
-      'Portugues',
-    }
-  ];
+  const [numberStudent, setNumberStudent] = useState()
+  const [serie, setSerie] = useState()
+  const [room, setRoom] = useState()
+  const [period, setPeriod] = useState()
+  const [coordinator, setCoordenador] = useState()
 
-  const dataPeriodo = [{
-    value: 
-      'Noite',
-    }, {
-    value: 
-      'Tarde',
-    }
-  ];
+  const { getItem } = useAsyncStorage('@storage_key');
 
+  async function register() {
+
+    const turma = {
+      numberStudent,
+      serie,
+      room,
+      period,
+      coordinator,
+      type:"Ensino Medio",
+      fk_school:"1",
+      fk_user:"1"
+    }
+
+    const item = await getItem()
+
+    await api.post( "team", turma ,{ headers: { Authorization: `Bearer ${item}` } } );
+  }
   return (
     <>
       <Header/>
@@ -36,22 +67,38 @@ export default function NewTurma({navigation}) {
         
       <ScrollView style={styles.scrollTeacher}>
 
-        <Dropdown
-          label='Disciplina'
+        <TextInput
+            mode="filled"
+            label="Coordenador"
+            underlineColor= "white"
+            onChangeText={coordinator => setCoordenador(coordinator)}
+            style={styles.coordenador}
+            theme={{
+              colors: { placeholder: 'white', text: 'white',
+              background: 'transparent' }
+            }}
+            style={styles.cargaHorario}
+        />  
+
+        <TextInput
+          mode="filled"
+          label="Sala"
           underlineColor= "white"
+          style={styles.room}
+          onChangeText={room => setRoom(room)}
           theme={{
             colors: { placeholder: 'white', text: 'white',
             background: 'transparent' }
           }}
-          data={data}
-          style={styles.disciplina}
+          style={styles.cargaHorario}
         />
 
         <TextInput
           mode="filled"
-          label="Carga horária"
+          label="Número de estudantes"
           underlineColor= "white"
-          style={{width:250}}
+          style={styles.numberStudents}
+          onChangeText={numberStudent => setNumberStudent(numberStudent)}
           theme={{
             colors: { placeholder: 'white', text: 'white',
             background: 'transparent' }
@@ -66,21 +113,21 @@ export default function NewTurma({navigation}) {
             colors: { placeholder: 'white', text: 'white',
             background: 'transparent' }
           }}
+          onChangeText={period => setPeriod(period)}
           data={dataPeriodo}
-          style={styles.periodo}
+          style={styles.disciplina}
         />
 
-        <TextInput
-          mode="filled"
-          multiline
-          label="Descrição"
+        <Dropdown
+          label='Série'
           underlineColor= "white"
-          style={{width:250}}
           theme={{
             colors: { placeholder: 'white', text: 'white',
             background: 'transparent' }
           }}
-          style={styles.desc}
+          onChangeText={serie => setSerie(serie)}
+          data={dataSerie}
+          style={styles.serie}
         />
 
         <Button
@@ -88,7 +135,7 @@ export default function NewTurma({navigation}) {
           labelStyle={{ color:"white" }}
           theme={{ roundness: 2 }}
           mode="contained"
-          onPress={() => {  }}>
+          onPress={() => { register() }}>
           Cadastrar
         </Button>
       </ScrollView>
@@ -147,6 +194,7 @@ const styles = StyleSheet.create({
   buttonCustomize:{
     width:280,
 
+    marginTop:20,
     marginLeft:"auto",
     marginRight:"auto",
   },   
@@ -154,16 +202,19 @@ const styles = StyleSheet.create({
     paddingHorizontal:16,
     paddingBottom: 16
   },
-  cargaHorario:{
+  coordenador:{
     marginBottom: 15
   },
-  periodo:{
+  numberStudents:{
     marginBottom: 15
   },
-  desc: {
-    marginBottom: 35
+  serie: {
+    marginBottom: 10
   },
   disciplina:{
-    marginBottom: 35
+    marginBottom: 10
+  },
+  room:{
+    marginBottom: 25
   }
 });

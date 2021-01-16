@@ -6,7 +6,8 @@ import { Button } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import ImageFake from '../../assets/images/Astronaut-space.jpg'
+
+import imageStudent from '../../assets/icons/userStudent.png'
 import CoinIcon from '../../assets/images/MaskGroup.png'
 
 import { useSelector } from 'react-redux';
@@ -15,6 +16,7 @@ import { useAsyncStorage } from '@react-native-community/async-storage';
 export default function AccountStudent({navigation, route}) {
   const selector = useSelector(state => state);
   const user = selector.user.user;
+  const carteira = selector.user.carteira;
 
   const { setItem } = useAsyncStorage('@storage_key');
 
@@ -29,7 +31,7 @@ export default function AccountStudent({navigation, route}) {
         <View style={styles.profileInfo}>
           <Image
             style={styles.imgProfile}
-            source={ImageFake}
+            source={imageStudent}
           />
           <Text  style={styles.profileName}>{user.name}</Text>
         </View>
@@ -47,8 +49,8 @@ export default function AccountStudent({navigation, route}) {
         </View>
         
         <View>
-          <Text style={styles.titleDetailMyAccount}>Cód Turma</Text>
-          <Text style={styles.textDetailMyAccount}>754 </Text>
+          <Text style={styles.titleDetailMyAccount}>Reason Coin</Text>
+          <Text style={styles.textDetailMyAccount}>{carteira.saldo} </Text>
         </View>
       </View>
 

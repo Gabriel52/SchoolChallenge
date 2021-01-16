@@ -1,7 +1,10 @@
 import React, {useEffect, useState, useCallback} from 'react';
 
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, RefreshControl, Image } from 'react-native';
 import ModalChallenge from '../../components/ModalChallenge';
+
+//Images
+import logoPrancheta from '../../assets/logos/LogotipoEscala_Prancheta4.png'
 
 import { useAsyncStorage } from '@react-native-community/async-storage';
 
@@ -29,16 +32,6 @@ export default function FunctionPrincipal({navigation, route}) {
     });
   }
 
-  async function readItemFromStorage() {
-    const item = await getItem();
-    setToken(item);
-  };
-
-  useEffect(()=>{
-    readItemFromStorage();
-
-  },[])
-
   const onRefresh = useCallback(() => {
     setRefreshing(true);
 
@@ -46,7 +39,9 @@ export default function FunctionPrincipal({navigation, route}) {
   }, []);
 
   async function updateChallenge() {
-    const challenges = await api.get("student/challenge", { headers: { Authorization: `Bearer ${token}` } })
+    const item = await getItem();
+
+    const challenges = await api.get("student/challenge", { headers: { Authorization: `Bearer ${item}` } })
     dispach(UserActions.addChallenge(challenges.data.data))
 
     wait(1500).then(() => setRefreshing(false));
@@ -55,6 +50,13 @@ export default function FunctionPrincipal({navigation, route}) {
   
   return (
     <>
+      <View style={styles.conatainerLogo}>
+        <Image
+          style={styles.logoImg}
+          source={logoPrancheta}
+        />
+      </View>
+
        <Text style={styles.titleSection}>
          Desafios
        </Text>
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
   titleSection: {
     marginLeft:"auto",
     marginRight:"auto",
-    marginTop: 90,
+    marginTop: 20,
 
     fontFamily: 'AlegreyaSans_800ExtraBold',
     fontSize: 24,
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent:"space-between",
     flexDirection:"row",
 
-    backgroundColor:"#FC392C",
+    backgroundColor:"#FB4B4B",
 
     marginLeft:"auto",
     marginRight:"auto",
@@ -167,5 +169,16 @@ const styles = StyleSheet.create({
   scrollTeacher:{
     paddingHorizontal:16,
     paddingBottom: 16
-  }
+  },
+  conatainerLogo:{
+    backgroundColor:"white",
+
+    marginLeft:"auto",
+    marginRight:"auto",
+    marginTop: 60
+  },
+  logoImg:{
+    width:280,
+    height:80
+  },
 });

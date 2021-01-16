@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 
 import { Button } from 'react-native-paper';
 
-import ImageFake from '../../assets/images/Astronaut-space.jpg'
+import imageSchool from '../../assets/icons/userSchool.png'
 
 export default function AccountCompany({navigation}) {
   return (
@@ -13,7 +13,7 @@ export default function AccountCompany({navigation}) {
         <View style={styles.profileInfo}>
           <Image
             style={styles.imgProfile}
-            source={ImageFake}
+            source={imageSchool}
           />
           <Text  style={styles.profileName}>Tadakyo Sakai</Text>
         </View>
