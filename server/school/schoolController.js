@@ -6,14 +6,14 @@ const adminAuth = require('../middleware/middleware')
 // Models
 var SchoolModel = require('./School')
 
-/
+
 router.post('/school', (req,res) => {
     
     var {name, county, state, cep, telephone, type, email, fk_responsible, inep} = req.body
     console.log(name)
     console.log(county, state, cep )
 
-    SchoolModel.findAll({where:{inep}}).then(response =>{
+    SchoolModel.findOne({where:{inep}}).then(response =>{
         if(response =='' || response ==null || response ==undefined){
             
             SchoolModel.create({

@@ -30,6 +30,10 @@ const Team = connection.define('tbl_team',{
         type: Sequelize.STRING,
         allowNull: false
     },
+    fk_user:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     fk_school:{
         type: Sequelize.STRING,
         allowNull: false

@@ -15,6 +15,10 @@ const Company = connection.define('tbl_company',{
         type: Sequelize.STRING,
         allowNull: false
     },
+    password:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     county:{
         type: Sequelize.STRING,
         allowNull: false
@@ -30,9 +34,11 @@ const Company = connection.define('tbl_company',{
     telephone:{
         type: Sequelize.STRING,
         allowNull: false
+    },setor:{
+        type: Sequelize.STRING,
+        allowNull: false
     },
-    
-    type:{
+    role:{
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -46,7 +52,6 @@ const Company = connection.define('tbl_company',{
         allowNull: false
     },
         
-
 });
 
 Company.sync({force:false}).then(()=>{
