@@ -9,6 +9,8 @@ import CoinIcon from '../../assets/images/MaskGroup.png'
 
 import api from '../../services/api';
 import { useDispatch } from 'react-redux';
+import { Creators as UserActions } from '../../store/ducks/user';
+
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import Header from '../../components/Header'
 
@@ -36,10 +38,14 @@ export default function AccountStudent({navigation, route}) {
 
     await api.post( "sendTransaction", dataTransaction ,{ headers: { Authorization: `Bearer ${item}` } } );
 
-    const user = await api.get( "team", turma ,{ headers: { Authorization: `Bearer ${item}` } } );
+    const user = await api.get( "myaccount", { headers: { Authorization: `Bearer ${item}` } } );
+
+    console.log(user.data)
 
     dispach(UserActions.addCarteira(user.data.wallet))
     dispach(UserActions.addUserAction(user.data.user))
+
+    setCoin(0)
     
   }
 

@@ -89,7 +89,7 @@ export default function AccountStudent({navigation, route}) {
         Sair
       </Button>
 
-      <Text style={styles.percentChallenge}>Lista de Desafios 60% concluídos. Quase lá!</Text>
+      <Text style={styles.percentChallenge}>Lista de Desafios 0% concluídos. Quase lá!</Text>
 
       <TouchableOpacity 
       onPress={()=>{navigation.navigate("FunctionPrincipal")}}

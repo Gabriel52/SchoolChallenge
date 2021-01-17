@@ -10,11 +10,9 @@ export default function AccountTeacher({navigation, route}) {
   const user = selector.user.user;
 
   const classes = [
-      { materia:"Português", school:"Tadakyo Sakai", totalStudents: 41 },
-      { materia:"Inglês", school:"Tadakyo Sakai", totalStudents: 29 },
-      { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
-      { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
-      { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
+      { materia:"Português", school:"Tadakiyo Sakai", totalStudents: 41 },
+      { materia:"Inglês", school:"Tadakiyo Sakai", totalStudents: 29 },
+      { materia:"História", school:"Tadakiyo Sakai", totalStudents: 30 },
     ]
 
   return (

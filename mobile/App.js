@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, LogBox } from 'react-native';
 
-// LogBox.ignoreAllLogs(true)
+LogBox.ignoreAllLogs(true)
 
 import React from 'react';
 

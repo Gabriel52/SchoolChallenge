@@ -56,7 +56,7 @@ app.post('/getTransaction', function(req, res) {
 app.listen(port, () => {
 
   // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-  truffle_connect.web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:9545"));
+  truffle_connect.web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.0.48:9545"));
 
   console.log("Express Listening at http://localhost:" + port);
 

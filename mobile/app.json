@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/escala.jpg",
+      "image": "./assets/escala.png",
       "resizeMode": "contain",
       "backgroundColor": "#2F80ED"
     },

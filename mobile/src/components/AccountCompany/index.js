@@ -41,7 +41,7 @@ export default function AccountCompany({navigation, route}) {
           theme={{ roundness: 2 }}
           mode="contained"
           onPress={()=>{navigation.navigate("SearchStudent")}}>
-          Apadrinhe uma instituição
+          Encontre um talento
         </Button>
 
       </View>

@@ -9,34 +9,29 @@ import { useSelector } from 'react-redux';
 
 const ENTRIES1 = [
   {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
+    title: '',
+    subtitle: '',
+    illustration: 'https://i.ibb.co/rF1B6Y2/desafio-Banner.jpg',
   },
   {
-    title: 'Earlier this morning, NYC',
+    title: '',
     subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
+    illustration: 'https://i.ibb.co/ZKcs2z5/coin-Banner.jpg',
   },
   {
-    title: 'White Pocket Sunset',
+    title: '',
     subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
+    illustration: 'https://i.ibb.co/kG3BKmj/empreender-Banner.jpg',
   },
   {
-    title: 'Acrocorinth, Greece',
+    title: '',
     subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-  },
-  {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
+    illustration: 'https://i.ibb.co/4YLdDhH/profissional-Banner.jpg',
   },
 ];
 const {width: screenWidth} = Dimensions.get('window');
 
-export default function Home(props, {navigation, route}) {
+export default function Home({navigation, route}) {
   const selector = useSelector(state => state);
   const user = selector.user.user;
 
@@ -94,7 +89,7 @@ export default function Home(props, {navigation, route}) {
           />
  
         {
-          user.role == "Estudante" ?
+          user.role == "Aluno" ?
           <Button
           style={{color: colors.primary, marginTop: 20, borderRadius: 12}}
           mode="contained"
@@ -153,6 +148,6 @@ const styles = StyleSheet.create({
   },
   image: {
     ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+    resizeMode: 'center',
   },
 });

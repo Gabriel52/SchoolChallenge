@@ -54,7 +54,7 @@ export default function NewTurma({navigation}) {
 
     const item = await getItem()
 
-    await api.post( "team", turma ,{ headers: { Authorization: `Bearer ${item}` } } );
+    const user = await api.get( "myaccount", { headers: { Authorization: `Bearer ${item}` } } );
   }
   return (
     <>

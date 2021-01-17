@@ -15,7 +15,7 @@ export default function AccountCompany({navigation}) {
             style={styles.imgProfile}
             source={imageSchool}
           />
-          <Text  style={styles.profileName}>Tadakyo Sakai</Text>
+          <Text  style={styles.profileName}>Tadakiyo Sakai</Text>
         </View>
       </View>
 

@@ -1,10 +1,11 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, RefreshControl, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import ModalChallenge from '../../components/ModalChallenge';
 
 //Images
 import logoPrancheta from '../../assets/logos/LogotipoEscala_Prancheta4.png'
+import iconClass from '../../assets/icons/iconClass.png'
 
 import { useAsyncStorage } from '@react-native-community/async-storage';
 
@@ -47,6 +48,33 @@ export default function FunctionPrincipal({navigation, route}) {
     wait(1500).then(() => setRefreshing(false));
   }
 
+  function Item({ title }) {
+    return(
+      <View style={styles.item}>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+    )
+   
+  }
+
+  function renderItem({ item }){
+    return (
+      <TouchableOpacity style={styles.sizeItem} onPress={()=>{setVisible(true), setChallenge(item)}}>
+        <View style={{backgroundColor:item.color, alignItems:"center", height:230, padding:20, borderRadius:5, marginBottom: 15}}>
+          <Text style={styles.matter}>{item.matter}</Text>
+          <Text style={styles.desc}>{item.title}</Text>
+          <Image
+            style={{width:80, height:70}}
+            source={{uri: item.icon}}
+          />
+          <Text style={styles.desc}>0% concluído.</Text>
+          <Text style={styles.desc}>Vale 100 pontos</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
+
   
   return (
     <>
@@ -60,25 +88,33 @@ export default function FunctionPrincipal({navigation, route}) {
        <Text style={styles.titleSection}>
          Desafios
        </Text>
-       <ScrollView style={styles.scrollTeacher}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-        { challenges.map( (challenge, index) => {
-            return(
-            <TouchableOpacity key={index} onPress={()=>{setVisible(true), setChallenge(challenge)}}>
-              <View style={challenge.success ? styles.boxDiscipline : styles.boxDisciplineError}>
-                <View>
-                  <Text style={styles.titleDiscipline}>
-                    {challenge.matter}
-                  </Text>
+       
+      {/* challenges.map( (challenge, index) => {
+          return(
+          <TouchableOpacity key={index} onPress={()=>{setVisible(true), setChallenge(challenge)}}>
+            <View style={challenge.success ? styles.boxDiscipline : styles.boxDisciplineError}>
+              <View>
+                <Text style={styles.titleDiscipline}>
+                  {challenge.matter}
+                </Text>
 
-                  <Text style={styles.schoolDiscipline}>
-                    {challenge.title}
-                  </Text>
-                </View>
+                <Text style={styles.schoolDiscipline}>
+                  {challenge.title}
+                </Text>
               </View>
-            </TouchableOpacity>
-            )}) }
-        </ScrollView>
+            </View>
+          </TouchableOpacity>
+          )}) */}
+            <FlatList
+              columnWrapperStyle={{justifyContent: 'space-between'}}
+              data={challenges}
+              renderItem={renderItem}
+              numColumns={2}
+              scrollEnabled={true}
+              keyExtractor={challenges => challenges.id.toString()}
+            />
+
+          
 
         <ModalChallenge visible={visible} setVisible={setVisible} challenge={challenge}/>
     </>
@@ -105,7 +141,8 @@ const styles = StyleSheet.create({
   titleSection: {
     marginLeft:"auto",
     marginRight:"auto",
-    marginTop: 20,
+    marginTop: 15,
+    marginBottom:15,
 
     fontFamily: 'AlegreyaSans_800ExtraBold',
     fontSize: 24,
@@ -181,4 +218,22 @@ const styles = StyleSheet.create({
     width:280,
     height:80
   },
+  boxChallenge:{
+    alignItems:"center",
+  },
+
+  sizeItem:{
+    width: '48%',
+  },
+  matter:{
+    fontFamily: 'AlegreyaSans_800ExtraBold',
+    fontSize: 17,
+  },
+  desc:{
+    fontFamily: 'AlegreyaSans_400Regular',
+    fontSize: 15,
+    textAlign:"center"
+  }
+  
+
 });
