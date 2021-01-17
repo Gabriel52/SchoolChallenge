@@ -47,3 +47,6 @@ $ npm start ou yarn start
   * [Node.js](https://nodejs.org/en/) (Back-End);
 
   * [React-Native](https://reactnative.dev/) (Mobile Front-End);
+
+  * [Expo](https://expo.io/) (Rodar o projeto);
+
