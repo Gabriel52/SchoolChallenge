@@ -10,7 +10,7 @@ var ChallengeModel = require('../challenge/Challenge')
 var WalletModel = require('../wallet/Wallet')
 var CompanyModel = require('../company/Company')
 var Fk_user = require('../fk_user/Fk_User')
-
+var TeamModel = require('../team/Team')
 // Controller
 
 router.post('/user', (req,res) => {
@@ -185,9 +185,9 @@ router.get('/student', (req, res) =>{
 router.get("/student/challenge", adminAuth, (req, res) =>{
 
     let id = req.loggedUser.id     
-    
+    console.log(id+"++++++++++++++++++++____________")
     UserModel.findOne({where:id}).then(user =>{
-        ChallengeModel.findAll({where:{fk_team: user.fk_turma}}).then(challenge =>{
+        ChallengeModel.findAll({where:{fk_team: id}}).then(challenge =>{
             if(challenge ==null || challenge ==undefined){
                 res.json({success: false})
                 res.statusCode = 400
@@ -240,28 +240,35 @@ router.get("/myaccount", adminAuth, (req,res) =>{
     }
 })
 
+
 router.post('/filter',adminAuth, (req, res) => {
     
-    var {uf, city, personality} = req.body
-    console.log(uf, city, personality)
+    var {uf, city, personality, age} = req.body
+    console.log(uf, city, personality, age)
     UserModel.findAll({
         where:{
             uf,
             city,
+            age,
             personality
         }
     }).then(user =>{
         if(user == undefined || user == null || user ==""){
             res.statusCode =404
             res.json({success:false, message:"Por enquanto não existe alunos com este atributo"})
+            
         }else{
-            res.statusCode =200
-            res.json({success:true, user:user})
+            TeamModel.findOne({where:{id:user[0].fk_turma}}).then(team =>{
+               
+                res.statusCode =200
+                res.json({success:true, user:user, team:team})
+                        
+            })
+        
         }
     }).catch(error =>{
         console.log(error)
     })
 })
-
 
 module.exports = router

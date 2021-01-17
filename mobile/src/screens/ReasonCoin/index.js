@@ -13,6 +13,8 @@ import { Creators as UserActions } from '../../store/ducks/user';
 
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import Header from '../../components/Header'
+import {Modal} from "react-native-modal"
+
 
 import { useSelector } from 'react-redux';
 
