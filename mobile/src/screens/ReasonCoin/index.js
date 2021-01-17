@@ -1,25 +1,48 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { StyleSheet, View, Text, Image, TouchableOpacity, Linking } from 'react-native';
 import { Button } from 'react-native-paper';
 
+import Feather from 'react-native-vector-icons/Feather';
+
 import CoinIcon from '../../assets/images/MaskGroup.png'
 
-import { useSelector } from 'react-redux';
+import api from '../../services/api';
+import { useDispatch } from 'react-redux';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import Header from '../../components/Header'
 import {Modal} from "react-native-modal"
 
 
+import { useSelector } from 'react-redux';
+
 export default function AccountStudent({navigation, route}) {
   const selector = useSelector(state => state);
   const user = selector.user.user;
+  const carteira = selector.user.carteira;
 
-  const { setItem } = useAsyncStorage('@storage_key');
+  const dispach = useDispatch();
+  
+  const [coin, setCoin] = useState(0)
 
-  function logout(){
-    setItem("");
-    navigation.navigate("Login");
+  const { getItem } = useAsyncStorage('@storage_key');
+
+  async function transactionCoin() {
+    const item = await getItem();
+
+    const coinTratament = coin / 100
+
+    console.log(coinTratament)
+
+    const dataTransaction = { amount: coinTratament }
+
+    await api.post( "sendTransaction", dataTransaction ,{ headers: { Authorization: `Bearer ${item}` } } );
+
+    const user = await api.get( "team", turma ,{ headers: { Authorization: `Bearer ${item}` } } );
+
+    dispach(UserActions.addCarteira(user.data.wallet))
+    dispach(UserActions.addUserAction(user.data.user))
+    
   }
 
   return (
@@ -44,10 +67,10 @@ export default function AccountStudent({navigation, route}) {
 
         <View>
           <Text style={styles.titleScore}>
-            Reason coins
+            Reason coin
           </Text>
           <Text style={styles.score}>
-            { user.score == null ? 0 : user.score }
+            { user.score == null ? 0 : carteira.saldo }
           </Text>
         </View>
 
@@ -59,24 +82,35 @@ export default function AccountStudent({navigation, route}) {
         <Button
         labelStyle={{ color:"white" }}
         theme={{ roundness: 2 }}
+        disabled={coin == 0}
         mode="contained"
-        onPress={() => {  }}>
-          -
+        onPress={() => { setCoin(coin - 100) }}>
+          <Feather name="minus" size={18}/>
         </Button>
         
-        <Text>
-          0
+        <Text style={styles.coinStyle}>
+          { coin }
         </Text>
         <Button
         labelStyle={{ color:"white" }}
         theme={{ roundness: 2 }}
         mode="contained"
-        onPress={() => {  }}>
-          +
+        disabled={coin == user.score}
+        onPress={() => { setCoin(coin + 100) }}>
+         <Feather name="plus" size={18}/>
         </Button>
       </View>
 
-      <TouchableOpacity onPress={()=>{ Linking.openURL("https://xtrala.com/") }}>
+      <Button
+      labelStyle={{ color:"white" }}
+      theme={{ roundness: 2 }}
+      mode="contained"
+      style={styles.buttonTransaction}
+      onPress={() => { transactionCoin() }}>
+        Trocar
+      </Button>
+
+      <TouchableOpacity onPress={()=>{ Linking.openURL("https://docs.google.com/document/d/1xtC6S5qW6iIFJpjMCJhXUWZhhvS6Vq0uJcpXa9cbtcw") }}>
         <Text style={styles.linkDownload}>Baixe nosso material gratuito sobre empreendedorismo e investimento!</Text>
       </TouchableOpacity>
 
@@ -168,7 +202,20 @@ const styles = StyleSheet.create({
     justifyContent:"space-between",
     alignItems:"center",
 
-    width:150,
+    width:250,
+    marginTop: 25,
+    marginLeft:"auto",
+    marginRight:"auto",
+  },
+  coinStyle:{
+    fontFamily: 'AlegreyaSans_800ExtraBold',
+    fontSize: 25,
+    color:"white"
+  },
+  buttonTransaction:{
+    width: 150,
+
+    marginTop: 25,
     marginLeft:"auto",
     marginRight:"auto",
   }

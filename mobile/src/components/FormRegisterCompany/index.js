@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     fontFamily: 'AlegreyaSans_800ExtraBold',
 
     textAlign: "center",
-    marginBottom: 35
+    marginBottom: 15
   },
   containerScroll: {
     paddingHorizontal:16,

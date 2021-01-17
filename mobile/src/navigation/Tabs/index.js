@@ -31,22 +31,35 @@ const icons = {
 export default function Tabs() {
   const selector = useSelector(state => state);
   const user = selector.user.user;
+
+  if(user.role === "Aluno"){
+    return(
+      <Tab.Navigator screenOptions={({route}) => ({
+        tabBarIcon:({color, size}) => {
+          const { lib: Icon, name } = icons[route.name];
+          
+          return <Icon name={name} size={size} color={color} />;
+        },
+      })} tabBarOptions={{ activeTintColor: '#FFC46C', inactiveTintColor:"white" , style: {backgroundColor: '#828282'},  labelStyle: {marginBottom: 2, fontSize:10, fontWeight:"bold"}, }}>
+        <Tab.Screen name="Home" component={Home} options={{tabBarLabel: 'Home'}}/>
+        <Tab.Screen name="FunctionPrincipal" component={FunctionPrincipal} options={{tabBarLabel : 'Desafios'}}/> 
+        <Tab.Screen name="MyAccount" component={MyAccount} options={{tabBarLabel: 'Minha Conta'}}/>
+      </Tab.Navigator>
+    )
+  } else {
+    return(
+      <Tab.Navigator screenOptions={({route}) => ({
+        tabBarIcon:({color, size}) => {
+          const { lib: Icon, name } = icons[route.name];
+          
+          return <Icon name={name} size={size} color={color} />;
+        },
+      })} tabBarOptions={{ activeTintColor: '#FFC46C', inactiveTintColor:"white" , style: {backgroundColor: '#828282'},  labelStyle: {marginBottom: 2, fontSize:10, fontWeight:"bold"}, }}>
+        <Tab.Screen name="Home" component={Home} options={{tabBarLabel: 'Home'}}/>
+        <Tab.Screen name="MyAccount" component={MyAccount} options={{tabBarLabel: 'Minha Conta'}}/>
+      </Tab.Navigator>
+    )
+  }
   
-  return(
-    <Tab.Navigator screenOptions={({route}) => ({
-      tabBarIcon:({color, size}) => {
-        const { lib: Icon, name } = icons[route.name];
-        
-        return <Icon name={name} size={size} color={color} />;
-      },
-    })} tabBarOptions={{ activeTintColor: '#FFC46C', inactiveTintColor:"white" , style: {backgroundColor: '#828282'},  labelStyle: {marginBottom: 2, fontSize:10, fontWeight:"bold"}, }}>
-      <Tab.Screen name="Home" component={Home} options={{tabBarLabel: 'Home'}}/>
-      {
-      user.role === "Aluno" 
-        ? <Tab.Screen name="FunctionPrincipal" component={FunctionPrincipal} options={{tabBarLabel : 'Desafios'}}/> 
-        : <Tab.Screen name="FunctionPrincipal" component={FunctionPrincipal} options={{tabBarLabel: 'Geral'}}/> 
-      }
-      <Tab.Screen name="MyAccount" component={MyAccount} options={{tabBarLabel: 'Minha Conta'}}/>
-    </Tab.Navigator>
-  )
+  
 }

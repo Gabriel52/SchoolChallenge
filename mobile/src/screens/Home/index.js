@@ -1,38 +1,108 @@
-import React from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 
-import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image,Dimensions, Platform, } from 'react-native';
+import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import { Button, useTheme } from 'react-native-paper';
 
-import ImageFake from '../../assets/images/Astronaut-space.jpg'
-import ImageFake2 from '../../assets/images/space.jpg'
+import logoPrancheta from '../../assets/logos/LogotipoEscala_Prancheta4.png'
+import { useSelector } from 'react-redux';
 
-export default function Home({navigation, route}) {
+const ENTRIES1 = [
+  {
+    title: 'Beautiful and dramatic Antelope Canyon',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    illustration: 'https://i.imgur.com/UYiroysl.jpg',
+  },
+  {
+    title: 'Earlier this morning, NYC',
+    subtitle: 'Lorem ipsum dolor sit amet',
+    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
+  },
+  {
+    title: 'White Pocket Sunset',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
+    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
+  },
+  {
+    title: 'Acrocorinth, Greece',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
+  },
+  {
+    title: 'The lone tree, majestic landscape of New Zealand',
+    subtitle: 'Lorem ipsum dolor sit amet',
+    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
+  },
+];
+const {width: screenWidth} = Dimensions.get('window');
+
+export default function Home(props, {navigation, route}) {
+  const selector = useSelector(state => state);
+  const user = selector.user.user;
+
   const { colors } = useTheme();
+
+  const [entries, setEntries] = useState([]);
+  const carouselRef = useRef(null);
+
+  const goForward = () => {
+    carouselRef.current.snapToNext();
+  };
+
+  useEffect(() => {
+    setEntries(ENTRIES1);
+  }, []);
+
+  const renderItem = ({item, index}, parallaxProps) => {
+    return (
+      <View style={styles.item}>
+        <ParallaxImage
+          source={{uri: item.illustration}}
+          containerStyle={styles.imageContainer}
+          style={styles.image}
+          parallaxFactor={0.4}
+          {...parallaxProps}
+        />
+        <Text style={styles.title} numberOfLines={2}>
+          {item.title}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <>
       <View style={styles.container}>
-        <Text  style={styles.sloganText}>Slogan</Text>
-        <ScrollView 
-          style={styles.containerScroll}
-          horizontal={true}>
+        <View style={styles.conatainerLogo}>
           <Image
-            style={styles.img}
-            source={ImageFake}
+            style={styles.logoImg}
+            source={logoPrancheta}
           />
-          <Image
-          style={styles.img}
-          source={ImageFake2}
-        />
-        </ScrollView>
+        </View>
 
-        <Button
-          style={{color: colors.primary, marginBottom: 10, borderRadius: 12}}
+        <Text  style={styles.sloganText}>Valorizando o Estudante!</Text>
+
+          <Carousel
+            ref={carouselRef}
+            sliderWidth={screenWidth}
+            sliderHeight={screenWidth}
+            itemWidth={screenWidth - 60}
+            data={entries}
+            layout={'default'} 
+            renderItem={renderItem}
+            hasParallaxImages={true}
+          />
+ 
+        {
+          user.role == "Estudante" ?
+          <Button
+          style={{color: colors.primary, marginTop: 20, borderRadius: 12}}
           mode="contained"
           labelStyle={{ color:"white" }}
           onPress={() => { navigation.navigate("FunctionPrincipal") }}>
           Ver Desafios
-        </Button>
+        </Button> : <View/>
+        }
       </View>
     </>
   );
@@ -46,12 +116,16 @@ const styles = StyleSheet.create({
 
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 120
+    marginTop: 60
   },
   img: {
     width: 260,
     marginRight: 15,
     height: 300,
+  },
+  logoImg:{
+    width:280,
+    height:80
   },
   containerScroll: {
     marginTop: 15,
@@ -59,6 +133,26 @@ const styles = StyleSheet.create({
     paddingBottom: 16
   },
   sloganText: {
-    color: 'white'
-  }
+    color: 'white',
+    fontSize: 18,
+    marginBottom:25
+  },
+  conatainerLogo:{
+    backgroundColor:"white"
+  },
+  item: {
+    width: screenWidth - 60,
+    height: screenWidth - 60,
+ 
+  },
+  imageContainer: {
+    flex: 1,
+    marginBottom: Platform.select({ios: 0, android: 1}), // Prevent a random Android rendering issue
+    backgroundColor: 'white',
+    borderRadius: 8,
+  },
+  image: {
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: 'cover',
+  },
 });

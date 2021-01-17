@@ -2,18 +2,20 @@ import React from 'react';
 
 import { StyleSheet, View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 
-import ImageFake from '../../assets/images/Astronaut-space.jpg'
-
+import imageTeacher from '../../assets/icons/userTeacher.png'
+import { useSelector } from 'react-redux';
 
 export default function AccountTeacher({navigation, route}) {
+  const selector = useSelector(state => state);
+  const user = selector.user.user;
 
-const classes = [
-    { materia:"Português", school:"Tadakyo Sakai", totalStudents: 41 },
-    { materia:"Inglês", school:"Tadakyo Sakai", totalStudents: 29 },
-    { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
-    { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
-    { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
-  ]
+  const classes = [
+      { materia:"Português", school:"Tadakyo Sakai", totalStudents: 41 },
+      { materia:"Inglês", school:"Tadakyo Sakai", totalStudents: 29 },
+      { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
+      { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
+      { materia:"História", school:"Tadakyo Sakai", totalStudents: 30 },
+    ]
 
   return (
     <>
@@ -21,9 +23,9 @@ const classes = [
         <View style={styles.profileInfo}>
           <Image
             style={styles.imgProfile}
-            source={ImageFake}
+            source={imageTeacher}
           />
-          <Text  style={styles.profileName}>Marcos Rocha</Text>
+          <Text  style={styles.profileName}>{user.name}</Text>
         </View>
       </View>
 

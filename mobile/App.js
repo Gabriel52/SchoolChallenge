@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, LogBox } from 'react-native';
+
+// LogBox.ignoreAllLogs(true)
 
 import React from 'react';
 
@@ -29,6 +31,7 @@ export default function App() {
     AlegreyaSans_800ExtraBold,
     AlegreyaSans_400Regular,
   });
+
 
   if(!fontsLoaded) {
     return <AppLoading/> 
