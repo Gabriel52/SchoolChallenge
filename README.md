@@ -38,6 +38,14 @@ $ npm install ou yarn
 # Primeiro rode este comando no microservices, server depois mobile
 $ npm start ou yarn start
 
+# npm install 
+
+# truffle develop 
+
+# build
+
+# migrate
+
 # Para rodar o aplicativo é preciso instalar o Expo  no seu celular, quando você rodar a aplicação Mobile com o comando yarn start, o seu navegador irá abrir mostrando um QrCode, abra o Expo no seu celular, e clique na opção "Scan QR Code", aponte a câmera para o QrCode e aproveite para fazer testes no Escala
 
 ```
