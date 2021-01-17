@@ -8,6 +8,8 @@ import CoinIcon from '../../assets/images/MaskGroup.png'
 import { useSelector } from 'react-redux';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import Header from '../../components/Header'
+import {Modal} from "react-native-modal"
+
 
 export default function AccountStudent({navigation, route}) {
   const selector = useSelector(state => state);
