@@ -244,12 +244,11 @@ router.get("/myaccount", adminAuth, (req,res) =>{
 router.post('/filter',adminAuth, (req, res) => {
     
     var {uf, city, personality, age} = req.body
-    console.log(uf, city, personality, age)
+    console.log(uf, city, personality)
     UserModel.findAll({
         where:{
             uf,
             city,
-            age,
             personality
         }
     }).then(user =>{

@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Logo" title="Logo" src="img/logo.png">
+    <img style="width:50%" alt="Logo" title="Logo" src="img/logo.png">
 </h1>
 
 <p align="center"> 
@@ -7,6 +7,51 @@
 </p>
 
 ## :iphone: Aplicativo
+  <table>
+    <tr>
+      <th width="50%">
+        Landing
+      </th>
+      <th width="50%">
+        Login
+      </th>
+    </tr>
+    <tr>
+      <td>
+          <img alt="Landing" title="Landing" style="width:50%;" src="img/landing.jpg">
+      </td>
+      <td>
+      <img alt="Login" title="Give-Classes" width="580" style="width:50%;" src="img/escala(3).jpeg">
+    </td>
+    </tr>
+  </table>
+
+<table>
+  <tr>
+    <th width="33.3%">
+      Empresas (Filtro) 
+    </th>
+    <th width="33.3%">
+      Aluno (Transação)
+    </th>
+    <th width="33.3%">
+      Estudar (Favoritos)
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <img alt="Filters" title="Filters" width="620" style="width:80%;" src="img/filtro.gif">
+    </td>
+    <td>
+        <img alt="Transaction" title="Classes-List" width="620" style="width:80%;" src="img/aluno.gif">
+    </td>
+    <td>
+        <img alt="F" title="Favorites" width="620" style="width:80%;" src="img/VID-20210117-WA0019.gif">
+    </td>
+  </tr>
+</table>
+
+
 
 ## :bulb: Principais funcionalidades
 
@@ -58,3 +103,8 @@ $ npm start ou yarn start
 
   * [Expo](https://expo.io/) (Rodar o projeto);
 
+<h2> :book: Licença </h2>
+<p>Lançado em 2020 :book:</p></br>
+<p>Feito pela equipe 25 Hackathon :rocket:. Este projeto está sobre a licença do MIT</p></br>
+<p>Dar uma :star: se este projeto te ajudou</p>
+s
