@@ -1,10 +1,13 @@
 <h1 align="center">
-    <img alt="Logo" title="Logo" src="img/logo.png">
     <img style="width:50%" alt="Logo" title="Logo" src="img/logo.png">
 </h1>
 
 <p align="center"> 
   O projeto tem o objetivo de diminuir o índice de evasão escolar, os principais motivos que identificamos foi a falta de motivação e a necessidade de arrumar um emprego, por isso criamos uma plataforma que permite as escolas cadastrarem seus professores e turmas, os professores ficam responsáveis por cadastrar os alunos e os desafios para eles realizarem, eles são recompensados por Reason Coin(moeda virtual), e uma oportunidade de serem vistos pelas empresas, já que as empresas conseguem realizar uma busca customizada por filtros, procurando estudantes com o perfil respectivo a vaga.
+  <br>
+  <a href="https://youtu.be/5Ak-X26yLHM">Assistir Pitch</a>
+  <br>
+  <a href="https://youtu.be/24QFpu6MqGU">Assistir Demo</a>
 </p>
 
 ## :iphone: Aplicativo
