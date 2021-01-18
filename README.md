@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Logo" style="width:200px;" title="Logo" src="img/logo.png">
+    <img alt="Logo" title="Logo" src="img/logo.png">
 </h1>
 
 <p align="center"> 
@@ -12,7 +12,9 @@
 
 * Cadastrar Turmas, Professores, Alunos e Desafios.
 
-* Validar os Desafios
+* Validar os Desafios.
+
+* Filtrar os alunos.
 
 * Trocar Pontos por Reason Coin(moeda virtual).
 
