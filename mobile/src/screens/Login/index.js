@@ -108,7 +108,7 @@ export default function Login({navigation}) {
             Esqueceu a senha?
           </Text>
           <Text style={styles.forgetPasswordLink}
-            onPress={() => { navigation.navigate("Tabs") }}> clique aqui! 
+            onPress={() => { }}> clique aqui! 
           </Text>
         </View>
 

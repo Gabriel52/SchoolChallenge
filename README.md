@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center"> 
-  O projeto tem o objetivo de diminuir o indice de evasão escolar, os principais motivos que indentifcamos foi a falta de motivação e a necessidade de arrumar um emprego, por isso criamos uma plataforma que permite as escolas cadastrarem seus professores e turmas, os professores ficam responsáveis por cadastrar os alunos e os desafios para eles realizarem, eles são recompensados por Reason Coin(moeda virtual), e uma oportunidade de serem vistos pelas empresas, já que as empresas conseguem realizar uma busca customizada por filtros, procurando estudantes com o perfil respectivo a vaga.
+  O projeto tem o objetivo de diminuir o índice de evasão escolar, os principais motivos que identificamos foi a falta de motivação e a necessidade de arrumar um emprego, por isso criamos uma plataforma que permite as escolas cadastrarem seus professores e turmas, os professores ficam responsáveis por cadastrar os alunos e os desafios para eles realizarem, eles são recompensados por Reason Coin(moeda virtual), e uma oportunidade de serem vistos pelas empresas, já que as empresas conseguem realizar uma busca customizada por filtros, procurando estudantes com o perfil respectivo a vaga.
 </p>
 
 ## :iphone: Aplicativo
@@ -83,15 +83,10 @@ $ npm install ou yarn
 # Primeiro rode este comando no microservices, server depois mobile
 $ npm start ou yarn start
 
-# npm install 
-
-# truffle develop 
-
-# build
-
-# migrate
-
-# Para rodar o aplicativo é preciso instalar o Expo  no seu celular, quando você rodar a aplicação Mobile com o comando yarn start, o seu navegador irá abrir mostrando um QrCode, abra o Expo no seu celular, e clique na opção "Scan QR Code", aponte a câmera para o QrCode e aproveite para fazer testes no Escala
+# Para rodar o aplicativo é preciso instalar o Expo  no seu celular,
+# quando você rodar a aplicação Mobile com o comando yarn start, o seu navegador
+# irá abrir mostrando um QrCode, abra o Expo no seu celular, e clique na opção
+# "Scan QR Code", aponte a câmera para o QrCode e aproveite para fazer testes no Escala
 
 ```
 
@@ -107,4 +102,3 @@ $ npm start ou yarn start
 <p>Lançado em 2020 :book:</p></br>
 <p>Feito pela equipe 25 Hackathon :rocket:. Este projeto está sobre a licença do MIT</p></br>
 <p>Dar uma :star: se este projeto te ajudou</p>
-s
