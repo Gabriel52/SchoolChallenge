@@ -18,10 +18,10 @@
     </tr>
     <tr>
       <td>
-          <img alt="Landing" title="Landing" style="width:30%;" src="img/landing.jpg">
+          <img alt="Landing" title="Landing" style="width:200px" src="img/landing.jpg">
       </td>
       <td>
-      <img alt="Login" title="Give-Classes" width="580" style="width:30%;" src="img/escala(3).jpeg">
+      <img alt="Login" title="Give-Classes" width="580" style="width:200px" src="img/escala(3).jpeg">
     </td>
     </tr>
   </table>
