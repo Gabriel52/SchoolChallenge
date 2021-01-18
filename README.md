@@ -4,6 +4,10 @@
 
 <p align="center"> 
   O projeto tem o objetivo de diminuir o índice de evasão escolar, os principais motivos que identificamos foi a falta de motivação e a necessidade de arrumar um emprego, por isso criamos uma plataforma que permite as escolas cadastrarem seus professores e turmas, os professores ficam responsáveis por cadastrar os alunos e os desafios para eles realizarem, eles são recompensados por Reason Coin(moeda virtual), e uma oportunidade de serem vistos pelas empresas, já que as empresas conseguem realizar uma busca customizada por filtros, procurando estudantes com o perfil respectivo a vaga.
+  <br>
+  <a href="https://youtu.be/5Ak-X26yLHM" target="_blank">Assistir Pitch</a>
+  <br>
+  <a href="https://youtu.be/24QFpu6MqGU" target="_blank">Assistir Demo</a>
 </p>
 
 ## :iphone: Aplicativo
@@ -18,10 +22,10 @@
     </tr>
     <tr>
       <td>
-          <img alt="Landing" title="Landing" style="width:50%;" src="img/landing.jpg">
+          <img alt="Landing" title="Landing" style="width:200px" src="img/landing.jpg">
       </td>
       <td>
-      <img alt="Login" title="Give-Classes" width="580" style="width:50%;" src="img/escala(3).jpeg">
+      <img alt="Login" title="Give-Classes" width="580" style="width:200px" src="img/escala(3).jpeg">
     </td>
     </tr>
   </table>
@@ -57,7 +61,9 @@
 
 * Cadastrar Turmas, Professores, Alunos e Desafios.
 
-* Validar os Desafios
+* Validar os Desafios.
+
+* Filtrar os alunos.
 
 * Trocar Pontos por Reason Coin(moeda virtual).
 
