@@ -83,9 +83,7 @@ $ git clone https://github.com/Gabriel52/SchoolChallenge.git
 # Acesse a pasta do projeto no seu terminal/cmd
 $ cd SchoolChallenge-master
 
-# Execute o comando nas pastas microservices/server/mobile para instalar todas as dependências
-$ npm install ou yarn
-
+# Acesse a pasta microservices e rode esses comandos
 #Moeda 
 
 $ npm install 
@@ -95,6 +93,10 @@ $ truffle develop
 $ build 
 
 $ migrate 
+
+
+# Execute o comando nas pastas server/mobile para instalar todas as dependências
+$ npm install ou yarn
 
 
 # Primeiro rode este comando no microservices, server depois mobile
