@@ -80,10 +80,22 @@ $ cd SchoolChallenge-master
 # Execute o comando nas pastas microservices/server/mobile para instalar todas as dependências
 $ npm install ou yarn
 
+#Moeda 
+
+$ npm install 
+
+$ truffle develop
+
+$ build 
+
+$ migrate 
+
+
 # Primeiro rode este comando no microservices, server depois mobile
 $ npm start ou yarn start
 
 # Para rodar o aplicativo é preciso instalar o Expo  no seu celular,
+# Configure um banco mysql com o nome schoolchallenge,
 # quando você rodar a aplicação Mobile com o comando yarn start, o seu navegador
 # irá abrir mostrando um QrCode, abra o Expo no seu celular, e clique na opção
 # "Scan QR Code", aponte a câmera para o QrCode e aproveite para fazer testes no Escala
